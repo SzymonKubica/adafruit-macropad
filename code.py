@@ -10,7 +10,6 @@ set, press MACROPAD keys to send key sequences and other USB protocols.
 """
 
 # pylint: disable=import-error, unused-import, too-few-public-methods
-
 import os
 import time
 import displayio
@@ -22,30 +21,32 @@ from adafruit_macropad import MacroPad
 
 # CONFIGURABLES ------------------------
 
-MACRO_FOLDER = '/macros'
+MACRO_FOLDER = "/macros"
 
 
 # CLASSES AND FUNCTIONS ----------------
 
+
 class App:
-    """ Class representing a host-side application, for which we have a set
-        of macro sequences. Project code was originally more complex and
-        this was helpful, but maybe it's excessive now?"""
+    """Class representing a host-side application, for which we have a set
+    of macro sequences. Project code was originally more complex and
+    this was helpful, but maybe it's excessive now?"""
+
     def __init__(self, appdata):
-        self.name = appdata['name']
-        self.macros = appdata['macros']
+        self.name = appdata["name"]
+        self.macros = appdata["macros"]
 
     def switch(self):
-        """ Activate application settings; update OLED labels and LED
-            colors. """
-        group[13].text = self.name   # Application name
+        """Activate application settings; update OLED labels and LED
+        colors."""
+        group[13].text = self.name  # Application name
         for i in range(12):
-            if i < len(self.macros): # Key in use, set label + LED color
+            if i < len(self.macros):  # Key in use, set label + LED color
                 macropad.pixels[i] = self.macros[i][0]
                 group[i].text = self.macros[i][1]
             else:  # Key not in use, no label or LED
                 macropad.pixels[i] = 0
-                group[i].text = ''
+                group[i].text = ""
         macropad.keyboard.release_all()
         macropad.consumer_control.release()
         macropad.mouse.release_all()
@@ -55,14 +56,28 @@ class App:
 
 
 class KeyDescriptionScreen:
-    def __init__(self, switch_name):
+    def __init__(
+        self, switch_name, switch_type, force, total_travel, pre_travel
+    ):
         self.switch_name = switch_name
+        self.switch_type = switch_type
+        self.force = force
+        self.total_travel = total_travel
+        self.pre_travel = pre_travel
+
     def show_screen(self):
         group[13].text = self.switch_name
         for i in range(12):
-            group[i].text = ''
+            group[i].text = ""
+        group[0].text = "Type"
+        group[2].text = self.switch_type
+        group[3].text = "Force"
+        group[5].text = self.force
+        group[6].text = "Total Travel"
+        group[8].text = self.total_travel
+        group[9].text = "Pre Travel"
+        group[11].text = self.pre_travel
         macropad.display.refresh()
-
 
 
 # INITIALIZATION -----------------------
@@ -77,15 +92,28 @@ group = displayio.Group()
 for key_index in range(12):
     x = key_index % 3
     y = key_index // 3
-    group.append(label.Label(terminalio.FONT, text='', color=0xFFFFFF,
-                             anchored_position=((macropad.display.width - 1) * x / 2,
-                                                macropad.display.height - 1 -
-                                                (3 - y) * 12),
-                             anchor_point=(x / 2, 1.0)))
+    group.append(
+        label.Label(
+            terminalio.FONT,
+            text="",
+            color=0xFFFFFF,
+            anchored_position=(
+                (macropad.display.width - 1) * x / 2,
+                macropad.display.height - 1 - (3 - y) * 12,
+            ),
+            anchor_point=(x / 2, 1.0),
+        )
+    )
 group.append(Rect(0, 0, macropad.display.width, 12, fill=0xFFFFFF))
-group.append(label.Label(terminalio.FONT, text='', color=0x000000,
-                         anchored_position=(macropad.display.width//2, -2),
-                         anchor_point=(0.5, -0.1)))
+group.append(
+    label.Label(
+        terminalio.FONT,
+        text="",
+        color=0x000000,
+        anchored_position=(macropad.display.width // 2, -2),
+        anchor_point=(0.5, -0.1),
+    )
+)
 macropad.display.show(group)
 
 # Load all the macro key setups from .py files in MACRO_FOLDER
@@ -93,18 +121,26 @@ apps = []
 files = os.listdir(MACRO_FOLDER)
 files.sort()
 for filename in files:
-    if filename.endswith('.py') and not filename.startswith('._'):
+    if filename.endswith(".py") and not filename.startswith("._"):
         try:
-            module = __import__(MACRO_FOLDER + '/' + filename[:-3])
+            module = __import__(MACRO_FOLDER + "/" + filename[:-3])
             apps.append(App(module.app))
-        except (SyntaxError, ImportError, AttributeError, KeyError, NameError,
-                IndexError, TypeError) as err:
+        except (
+            SyntaxError,
+            ImportError,
+            AttributeError,
+            KeyError,
+            NameError,
+            IndexError,
+            TypeError,
+        ) as err:
             print("ERROR in", filename)
             import traceback
+
             traceback.print_exception(err, err, err.__traceback__)
 
 if not apps:
-    group[13].text = 'NO MACRO FILES FOUND'
+    group[13].text = "NO MACRO FILES FOUND"
     macropad.display.refresh()
     while True:
         pass
@@ -118,6 +154,7 @@ apps[app_index].switch()
 # MAIN LOOP ----------------------------
 
 current_app = None
+last_tested_switch_name = None
 while True:
     # Read encoder position. If it's changed, switch apps.
     position = macropad.encoder
@@ -136,13 +173,13 @@ while True:
     if encoder_switch != last_encoder_switch:
         last_encoder_switch = encoder_switch
         if len(apps[app_index].macros) < 13:
-            continue    # No 13th macro, just resume main loop
-        key_number = 12 # else process below as 13th macro
+            continue  # No 13th macro, just resume main loop
+        key_number = 12  # else process below as 13th macro
         pressed = encoder_switch
     else:
         event = macropad.keys.events.get()
         if not event or event.key_number >= len(apps[app_index].macros):
-            continue # No key events, or no corresponding macro, resume loop
+            continue  # No key events, or no corresponding macro, resume loop
         key_number = event.key_number
         pressed = event.pressed
 
@@ -159,7 +196,7 @@ while True:
         # String (e.g. "Foo"): corresponding keys pressed & released
         # List []: one or more Consumer Control codes (can also do float delay)
         # Dict {}: mouse buttons/motion (might extend in future)
-        if key_number < 12: # No pixel for encoder button
+        if key_number < 12:  # No pixel for encoder button
             macropad.pixels[key_number] = 0xFFFFFF
             macropad.pixels.show()
         for item in sequence:
@@ -180,25 +217,41 @@ while True:
                     if isinstance(code, float):
                         time.sleep(code)
             elif isinstance(item, dict):
-                if 'buttons' in item:
-                    if item['buttons'] >= 0:
-                        macropad.mouse.press(item['buttons'])
+                if "buttons" in item:
+                    if item["buttons"] >= 0:
+                        macropad.mouse.press(item["buttons"])
                     else:
-                        macropad.mouse.release(-item['buttons'])
-                macropad.mouse.move(item['x'] if 'x' in item else 0,
-                                    item['y'] if 'y' in item else 0,
-                                    item['wheel'] if 'wheel' in item else 0)
-                if 'key_description' in item:
-                    key_switch_description = KeyDescriptionScreen(item['key_description'])
-                    key_switch_description.show_screen()
-                if 'tone' in item:
-                    if item['tone'] > 0:
+                        macropad.mouse.release(-item["buttons"])
+                macropad.mouse.move(
+                    item["x"] if "x" in item else 0,
+                    item["y"] if "y" in item else 0,
+                    item["wheel"] if "wheel" in item else 0,
+                )
+                if "switch_name" in item:
+                    switch_name = item["switch_name"]
+                    if switch_name == "reset" and current_app is not None:
+                        last_tested_switch_name = None
+                        current_app.switch()
+                        continue
+                    key_switch_description = KeyDescriptionScreen(
+                        switch_name,
+                        item["switch_type"],
+                        item["force"],
+                        item["total_travel"],
+                        item["pre_travel"],
+                    )
+                    if switch_name != last_tested_switch_name:
+                        last_tested_switch_name = switch_name
+                        key_switch_description.show_screen()
+
+                if "tone" in item:
+                    if item["tone"] > 0:
                         macropad.stop_tone()
-                        macropad.start_tone(item['tone'])
+                        macropad.start_tone(item["tone"])
                     else:
                         macropad.stop_tone()
-                elif 'play' in item:
-                    macropad.play_file(item['play'])
+                elif "play" in item:
+                    macropad.play_file(item["play"])
 
     else:
         # Release any still-pressed keys, consumer codes, mouse buttons
@@ -211,14 +264,12 @@ while True:
                 if item >= 0:
                     macropad.keyboard.release(item)
             elif isinstance(item, dict):
-                if 'buttons' in item:
-                    if item['buttons'] >= 0:
-                        macropad.mouse.release(item['buttons'])
-                elif 'tone' in item:
+                if "buttons" in item:
+                    if item["buttons"] >= 0:
+                        macropad.mouse.release(item["buttons"])
+                elif "tone" in item:
                     macropad.stop_tone()
         macropad.consumer_control.release()
-        if current_app:
-            current_app.switch()
-        if key_number < 12: # No pixel for encoder button
+        if key_number < 12:  # No pixel for encoder button
             macropad.pixels[key_number] = apps[app_index].macros[key_number][0]
             macropad.pixels.show()

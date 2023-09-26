@@ -1,30 +1,173 @@
-# SPDX-FileCopyrightText: 2021 Emma Humphries for Adafruit Industries
+# SPDX-FileCopyrightText: 2023 Szymon Kubica
 #
 # SPDX-License-Identifier: MIT
 
-# MACROPAD Hotkeys example: Universal Numpad
 
-app = {                # REQUIRED dict, must be named 'app'
-    'name' : 'Key Tester', # Application name
-    'macros' : [       # List of button macros...
+app = {  # REQUIRED dict, must be named 'app'
+    "name": "Switch Tester",  # Application name
+    "macros": [  # List of button macros...
         # COLOR    LABEL    KEY SEQUENCE
         # 1st row ----------
-                (0x74A12E, '0', [{'key_description': 'Akko Matcha Green'}]),
-        (0x4f42b5 , '1', [{'key_description': 'Akko Ocean Blue'}]),
-        (0x008000, '2', [{'key_description': 'Gateron Green'}]),
+        (
+            0x74A12E,
+            "",
+            [
+                {
+                    "switch_name": "Akko Matcha Green",
+                    "switch_type": "Linear",
+                    "force": "50g",
+                    "total_travel": "4.0mm",
+                    "pre_travel": "1.9mm",
+                }
+            ],
+        ),
+        (
+            0x4F42B5,
+            "",
+            [
+                {
+                    "switch_name": "Akko Ocean Blue",
+                    "switch_type": "Tacktile",
+                    "force": "36g / 45g",
+                    "total_travel": "4.0mm",
+                    "pre_travel": "1.9mm",
+                }
+            ],
+        ),
+        (
+            0x008000,
+            "",
+            [
+                {
+                    "switch_name": "Gateron Green",
+                    "switch_type": "Clicky",
+                    "force": "65g / 80g",
+                    "total_travel": "4.0mm",
+                    "pre_travel": "2.3mm",
+                }
+            ],
+        ),
         # 2nd row ----------
-        (0xd30000, '3', [{'key_description': 'Gateron Red'}]),
-        (0xc21e56, '4', [{'key_description': 'Akko Rose Red'}]),
-        (0x8A1522, '5', [{'key_description': 'Akko Radiant Red'}]),
+        (
+            0xFA1020,
+            "",
+            [
+                {
+                    "switch_name": "Gateron Red",
+                    "switch_type": "Linear",
+                    "force": "45g",
+                    "total_travel": "4.0mm",
+                    "pre_travel": "2.0mm",
+                }
+            ],
+        ),
+        (
+            0xC21E56,
+            "",
+            [
+                {
+                    "switch_name": "Akko Rose Red",
+                    "switch_type": "Linear",
+                    "force": "45g",
+                    "total_travel": "4.0mm",
+                    "pre_travel": "2.0mm",
+                }
+            ],
+        ),
+        (
+            0xD30000,
+            "",
+            [
+                {
+                    "switch_name": "Akko Radiant Red",
+                    "switch_type": "Linear",
+                    "force": "53g",
+                    "total_travel": "3.5mm",
+                    "pre_travel": "1.9mm",
+                }
+            ],
+        ),
         # 3rd row ----------
-        (0x4a3662, '6', [{'key_description': 'Akko Lavender Purple'}]),
-        (0x6f5193, '7', [{'key_description': 'Akko Jelly Purple'}]),
-        (0x251b31, '8', [{'key_description': 'Zealio V2'}]),
+        (
+            0x4A3662,
+            "",
+            [
+                {
+                    "switch_name": "Akko Lavender Purple",
+                    "switch_type": "Tacktile",
+                    "force": "36g / 50g",
+                    "total_travel": "4.0mm",
+                    "pre_travel": "1.9mm",
+                }
+            ],
+        ),
+        (
+            0x6F5193,
+            "",
+            [
+                {
+                    "switch_name": "Akko Jelly Purple",
+                    "switch_type": "Tacktile",
+                    "force": "40g / 56g",
+                    "total_travel": "4.0mm",
+                    "pre_travel": "2.0mm",
+                }
+            ],
+        ),
+        (
+            0x251B31,
+            "",
+            [
+                {
+                    "switch_name": "Zealio V2",
+                    "switch_type": "Tacktile",
+                    "force": "62g",
+                    "total_travel": "4.0mm",
+                    "pre_travel": "2.6mm",
+                }
+            ],
+        ),
         # 4th row ----------
-        (0x909090, '9', [{'key_description': 'Akko Vintage White'}]),
-        (0x909090, '10', [{'key_description': 'Gateron Clear'}]),
-        (0x9090af, '11', [{'key_description': 'Kailh Speed Silver'}]),
+        (
+            0x909090,
+            "",
+            [
+                {
+                    "switch_name": "Akko Vintage White",
+                    "switch_type": "Linear",
+                    "force": "35g",
+                    "total_travel": "4.0mm",
+                    "pre_travel": "1.9mm",
+                }
+            ],
+        ),
+        (
+            0x909090,
+            "",
+            [
+                {
+                    "switch_name": "Gateron Clear",
+                    "switch_type": "Linear",
+                    "force": "35g",
+                    "total_travel": "4.0mm",
+                    "pre_travel": "2.0mm",
+                }
+            ],
+        ),
+        (
+            0x9090AF,
+            "",
+            [
+                {
+                    "switch_name": "Kailh Speed Silver",
+                    "switch_type": "Linear",
+                    "force": "40g",
+                    "total_travel": "3.5mm",
+                    "pre_travel": "1.1mm",
+                }
+            ],
+        ),
         # Encoder button ---
-        (0x000000, '', ['#'])
-    ]
+        (0x000000, "", [{"switch_name": "reset"}]),
+    ],
 }
