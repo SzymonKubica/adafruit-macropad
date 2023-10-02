@@ -2,14 +2,13 @@
 #
 # SPDX-License-Identifier: MIT
 
-
 app = {  # REQUIRED dict, must be named 'app'
     "name": "Switch Tester",  # Application name
     "macros": [  # List of button macros...
         # COLOR    LABEL    KEY SEQUENCE
         # 1st row ----------
         (
-            0x74A12E,
+            0x34710E,
             "",
             [
                 {
@@ -22,12 +21,12 @@ app = {  # REQUIRED dict, must be named 'app'
             ],
         ),
         (
-            0x4F42B5,
+            0x0F0275,
             "",
             [
                 {
                     "switch_name": "Akko Ocean Blue",
-                    "switch_type": "Tacktile",
+                    "switch_type": "Tactile",
                     "force": "36g / 45g",
                     "total_travel": "4.0mm",
                     "pre_travel": "1.9mm",
@@ -35,7 +34,7 @@ app = {  # REQUIRED dict, must be named 'app'
             ],
         ),
         (
-            0x008000,
+            0x004000,
             "",
             [
                 {
@@ -49,7 +48,7 @@ app = {  # REQUIRED dict, must be named 'app'
         ),
         # 2nd row ----------
         (
-            0xFA1020,
+            0x7A0202,
             "",
             [
                 {
@@ -62,7 +61,7 @@ app = {  # REQUIRED dict, must be named 'app'
             ],
         ),
         (
-            0xC21E56,
+            0x920F16,
             "",
             [
                 {
@@ -75,7 +74,7 @@ app = {  # REQUIRED dict, must be named 'app'
             ],
         ),
         (
-            0xD30000,
+            0xA30000,
             "",
             [
                 {
@@ -89,12 +88,12 @@ app = {  # REQUIRED dict, must be named 'app'
         ),
         # 3rd row ----------
         (
-            0x4A3662,
+            0x0A0622,
             "",
             [
                 {
                     "switch_name": "Akko Lavender Purple",
-                    "switch_type": "Tacktile",
+                    "switch_type": "Tactile",
                     "force": "36g / 50g",
                     "total_travel": "4.0mm",
                     "pre_travel": "1.9mm",
@@ -102,12 +101,12 @@ app = {  # REQUIRED dict, must be named 'app'
             ],
         ),
         (
-            0x6F5193,
+            0x2F1153,
             "",
             [
                 {
                     "switch_name": "Akko Jelly Purple",
-                    "switch_type": "Tacktile",
+                    "switch_type": "Tactile",
                     "force": "40g / 56g",
                     "total_travel": "4.0mm",
                     "pre_travel": "2.0mm",
@@ -115,12 +114,12 @@ app = {  # REQUIRED dict, must be named 'app'
             ],
         ),
         (
-            0x251B31,
+            0x150B21,
             "",
             [
                 {
                     "switch_name": "Zealio V2",
-                    "switch_type": "Tacktile",
+                    "switch_type": "Tactile",
                     "force": "62g",
                     "total_travel": "4.0mm",
                     "pre_travel": "2.6mm",
@@ -129,7 +128,7 @@ app = {  # REQUIRED dict, must be named 'app'
         ),
         # 4th row ----------
         (
-            0x909090,
+            0x505050,
             "",
             [
                 {
@@ -142,7 +141,7 @@ app = {  # REQUIRED dict, must be named 'app'
             ],
         ),
         (
-            0x909090,
+            0x505050,
             "",
             [
                 {
@@ -155,7 +154,7 @@ app = {  # REQUIRED dict, must be named 'app'
             ],
         ),
         (
-            0x9090AF,
+            0x50507F,
             "",
             [
                 {
