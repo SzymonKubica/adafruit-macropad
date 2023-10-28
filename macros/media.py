@@ -24,11 +24,11 @@ app = {               # REQUIRED dict, must be named 'app'
     'macros' : [      # List of button macros...
         # COLOR    LABEL    KEY SEQUENCE
         # 1st row ----------
-        (0x202020, 'PrtSc', [[Keycode.PRINT_SCREEN]]),
+        (0x202020, 'PrtSc', [Keycode.PRINT_SCREEN]),
         (0x000020, 'Vol+', [[ConsumerControlCode.VOLUME_INCREMENT]]),
         (0x202020, 'Bright+', [[ConsumerControlCode.BRIGHTNESS_INCREMENT]]),
         # 2nd row ----------
-        (0x000000, '', []),
+        (0x000000, 'Lock', [Keycode.WINDOWS, Keycode.L]),
         (0x000020, 'Vol-', [[ConsumerControlCode.VOLUME_DECREMENT]]),
         (0x202020, 'Bright-', [[ConsumerControlCode.BRIGHTNESS_DECREMENT]]),
         # 3rd row ----------
