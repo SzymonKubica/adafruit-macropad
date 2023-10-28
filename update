@@ -8,4 +8,4 @@ fi
 
 file_to_update=$1
 
-cp $file_to_update /run/media/szymon/CIRCUTPY/
+cp $file_to_update /run/media/szymon/CIRCUITPY/$file_to_update

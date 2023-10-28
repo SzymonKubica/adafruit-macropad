@@ -8,7 +8,7 @@ app = {  # REQUIRED dict, must be named 'app'
         # COLOR    LABEL    KEY SEQUENCE
         # 1st row ----------
         (
-            0x34710E,
+            0x316E0B,
             "",
             [
                 {
@@ -21,7 +21,7 @@ app = {  # REQUIRED dict, must be named 'app'
             ],
         ),
         (
-            0x0F0275,
+            0x0C0172,
             "",
             [
                 {
@@ -48,7 +48,7 @@ app = {  # REQUIRED dict, must be named 'app'
         ),
         # 2nd row ----------
         (
-            0x7A0202,
+            0x770202,
             "",
             [
                 {
@@ -61,7 +61,7 @@ app = {  # REQUIRED dict, must be named 'app'
             ],
         ),
         (
-            0x920F16,
+            0x8E0C13,
             "",
             [
                 {
@@ -74,7 +74,7 @@ app = {  # REQUIRED dict, must be named 'app'
             ],
         ),
         (
-            0xA30000,
+            0xA00000,
             "",
             [
                 {
@@ -88,7 +88,7 @@ app = {  # REQUIRED dict, must be named 'app'
         ),
         # 3rd row ----------
         (
-            0x0A0622,
+            0x07031E,
             "",
             [
                 {
@@ -101,7 +101,7 @@ app = {  # REQUIRED dict, must be named 'app'
             ],
         ),
         (
-            0x2F1153,
+            0x2C0E50,
             "",
             [
                 {
@@ -114,7 +114,7 @@ app = {  # REQUIRED dict, must be named 'app'
             ],
         ),
         (
-            0x150B21,
+            0x12081E,
             "",
             [
                 {
@@ -128,7 +128,7 @@ app = {  # REQUIRED dict, must be named 'app'
         ),
         # 4th row ----------
         (
-            0x505050,
+            0x404040,
             "",
             [
                 {
@@ -141,7 +141,7 @@ app = {  # REQUIRED dict, must be named 'app'
             ],
         ),
         (
-            0x505050,
+            0x404040,
             "",
             [
                 {
@@ -154,7 +154,7 @@ app = {  # REQUIRED dict, must be named 'app'
             ],
         ),
         (
-            0x50507F,
+            0x40406F,
             "",
             [
                 {
