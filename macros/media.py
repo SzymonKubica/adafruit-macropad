@@ -15,6 +15,7 @@
 
 # To reference Consumer Control codes, import ConsumerControlCode like so...
 from adafruit_hid.consumer_control_code import ConsumerControlCode
+from adafruit_hid.keycode import Keycode
 # You can still import Keycode as well if a macro file mixes types!
 # See other macro files for typical Keycode examples.
 
@@ -23,7 +24,7 @@ app = {               # REQUIRED dict, must be named 'app'
     'macros' : [      # List of button macros...
         # COLOR    LABEL    KEY SEQUENCE
         # 1st row ----------
-        (0x000000, '', []),
+        (0x202020, 'PrtSc', [[Keycode.PRINT_SCREEN]]),
         (0x000020, 'Vol+', [[ConsumerControlCode.VOLUME_INCREMENT]]),
         (0x202020, 'Bright+', [[ConsumerControlCode.BRIGHTNESS_INCREMENT]]),
         # 2nd row ----------
