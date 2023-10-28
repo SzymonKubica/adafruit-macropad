@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ -z $1 ]
+then
+    echo "Usage: $0 <file>"
+    exit 1
+fi
+
+file_to_update=$1
+
+cp $file_to_update /run/media/szymon/CIRCUTPY/
