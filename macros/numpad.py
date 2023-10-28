@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2021 Emma Humphries for Adafruit Industries
+# SPDX-FileCopyrightText: 2021 Emma Humphries for Ad40ruit Industries
 #
 # SPDX-License-Identifier: MIT
 
@@ -11,21 +11,21 @@ app = {                # REQUIRED dict, must be named 'app'
     'macros' : [       # List of button macros...
         # COLOR    LABEL    KEY SEQUENCE
         # 1st row ----------
-        (0x202000, '7', ['7']),
-        (0x202000, '8', ['8']),
-        (0x202000, '9', ['9']),
+        (0x400000, '7', ['7']),
+        (0x400000, '8', ['8']),
+        (0x400000, '9', ['9']),
         # 2nd row ----------
-        (0x202000, '4', ['4']),
-        (0x202000, '5', ['5']),
-        (0x202000, '6', ['6']),
+        (0x400000, '4', ['4']),
+        (0x400000, '5', ['5']),
+        (0x400000, '6', ['6']),
         # 3rd row ----------
-        (0x202000, '1', ['1']),
-        (0x202000, '2', ['2']),
-        (0x202000, '3', ['3']),
+        (0x400000, '1', ['1']),
+        (0x400000, '2', ['2']),
+        (0x400000, '3', ['3']),
         # 4th row ----------
-        (0x202000, '0', ['0']),
-        (0x101010, '+', ['+']),
-        (0x101010, 'X', [Keycode.BACKSPACE]),
+        (0x404000, 'Backspace', [Keycode.BACKSPACE]),
+        (0x400000, '0', ['0']),
+        (0x004000, 'Enter', [Keycode.ENTER]),
         # Encoder button ---
         (0x000000, '', ['#'])
     ]
