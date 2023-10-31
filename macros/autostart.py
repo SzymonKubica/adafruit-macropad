@@ -26,21 +26,21 @@ app = {               # REQUIRED dict, must be named 'app'
     'macros' : [      # List of button macros...
         # COLOR    LABEL    KEY SEQUENCE
         # 1st row ----------
-        (0x2f0000, '', []),
-        (0x2f0000, '', []),
-        (0x2f0000, '', []),
+        (0x1f0000, '', []),
+        (0x1f0000, '', []),
+        (0x1f0000, '', []),
         # 2nd row ----------
-        (0x2f0000, '', []),
-        (0x000000, 'Start', [Keycode.CONTROL, '5', Keycode.CONTROL, Keycode.SPACE, -Keycode.SPACE, -Keycode.CONTROL, 0.1, 'start', Keycode.ENTER]),
-        (0x2f0000, '', []),
+        (0x1f0000, '', []),
+        (0xaf0000, 'Start', [Keycode.CONTROL, '5', Keycode.CONTROL, Keycode.SPACE, -Keycode.SPACE, -Keycode.CONTROL, 0.1, 'start', Keycode.ENTER]),
+        (0x1f0000, '', []),
         # 3rd row ----------
-        (0x2f0000, '', []),
-        (0x2f0000, '', []),
-        (0x2f0000, '', []),
+        (0x1f0000, '', []),
+        (0x1f0000, '', []),
+        (0x1f0000, '', []),
         # 4th row ----------
-        (0x2f0000, '', []),
-        (0x2f0000, '', []),
-        (0x2f0000, '', []),
+        (0x1f0000, '', []),
+        (0x1f0000, '', []),
+        (0x1f0000, '', []),
         # Encoder button ---
         (0x000000, '', [])
     ]
