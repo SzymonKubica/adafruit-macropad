@@ -39,7 +39,7 @@ app = {               # REQUIRED dict, must be named 'app'
         (0x1f0000, '', []),
         # 4th row ----------
         (0x1f0000, '', []),
-        (0x1f0000, '', []),
+        (0x1f0000, 'Home', [Keycode.CONTROL, '5']),
         (0x1f0000, '', []),
         # Encoder button ---
         (0x000000, '', [])
