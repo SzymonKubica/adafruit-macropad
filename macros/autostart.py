@@ -35,7 +35,7 @@ app = {               # REQUIRED dict, must be named 'app'
         (0x1f0000, '', []),
         # 3rd row ----------
         (0x1f0000, '', []),
-        (0x1f0000, '', []),
+        (0x0f0000, 'Lock', [Keycode.WINDOWS, Keycode.L]),
         (0x1f0000, '', []),
         # 4th row ----------
         (0x1f0000, '', []),
