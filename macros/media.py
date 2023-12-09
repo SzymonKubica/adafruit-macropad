@@ -24,7 +24,7 @@ app = {               # REQUIRED dict, must be named 'app'
     'macros' : [      # List of button macros...
         # COLOR    LABEL    KEY SEQUENCE
         # 1st row ----------
-        (0x202020, 'Lock', [Keycode.WINDOWS, Keycode.L]),
+        (0x000000, '', []),
         (0x000020, 'Vol+', [[ConsumerControlCode.VOLUME_INCREMENT]]),
         (0x202020, 'PrtSc', [Keycode.PRINT_SCREEN]),
         # 2nd row ----------
@@ -34,7 +34,7 @@ app = {               # REQUIRED dict, must be named 'app'
         # 3rd row ----------
         (0x000000, '', []),
         (0x000020, 'Mute', [[ConsumerControlCode.MUTE]]),
-        (0x000000, '', []),
+        (0x202020, 'Lock', [Keycode.WINDOWS, Keycode.L]),
         # 4th row ----------
         (0x002000, '<<', [[ConsumerControlCode.SCAN_PREVIOUS_TRACK]]),
         (0x002000, 'Play/Pause', [[ConsumerControlCode.PLAY_PAUSE]]),
