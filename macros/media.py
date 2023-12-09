@@ -30,15 +30,15 @@ app = {               # REQUIRED dict, must be named 'app'
         # 2nd row ----------
         (0x000000, '', []),
         (0x000020, 'Vol-', [[ConsumerControlCode.VOLUME_DECREMENT]]),
-        (0x000000, '', []),
+        (0x202020, 'Calc', [Keycode.CONTROL, Keycode.SPACE, -Keycode.SPACE, -Keycode.CONTROL, 0.1, 'calculator', Keycode.ENTER]),
         # 3rd row ----------
         (0x000000, '', []),
-        (0x200000, 'Mute', [[ConsumerControlCode.MUTE]]),
+        (0x000020, 'Mute', [[ConsumerControlCode.MUTE]]),
         (0x000000, '', []),
         # 4th row ----------
-        (0x202000, '<<', [[ConsumerControlCode.SCAN_PREVIOUS_TRACK]]),
+        (0x002000, '<<', [[ConsumerControlCode.SCAN_PREVIOUS_TRACK]]),
         (0x002000, 'Play/Pause', [[ConsumerControlCode.PLAY_PAUSE]]),
-        (0x202000, '>>', [[ConsumerControlCode.SCAN_NEXT_TRACK]]),
+        (0x002000, '>>', [[ConsumerControlCode.SCAN_NEXT_TRACK]]),
         # Encoder button ---
         (0x000000, '', [Keycode.ESCAPE])
     ]
