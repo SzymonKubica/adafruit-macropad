@@ -31,7 +31,7 @@ app = {               # REQUIRED dict, must be named 'app'
         (0x1f0000, '', []),
         # 2nd row ----------
         (0x1f0000, '', []),
-        (0xaf0000, 'Start', [Keycode.CONTROL, '5', Keycode.CONTROL, Keycode.SPACE, -Keycode.SPACE, -Keycode.CONTROL, 0.1, 'start', Keycode.ENTER]),
+        (0xaf0000, 'Start', [Keycode.CONTROL, '5', -Keycode.CONTROL, Keycode.CONTROL, Keycode.SPACE, -Keycode.SPACE, -Keycode.CONTROL, 0.1, 'start', Keycode.ENTER]),
         (0x1f0000, '', []),
         # 3rd row ----------
         (0x1f0000, '', []),
