@@ -12,6 +12,7 @@ set, press MACROPAD keys to send key sequences and other USB protocols.
 # pylint: disable=import-error, unused-import, too-few-public-methods
 import os
 import time
+import math
 import displayio
 import terminalio
 from adafruit_display_shapes.rect import Rect
@@ -22,7 +23,7 @@ from adafruit_macropad import MacroPad
 # CONFIGURABLES ------------------------
 
 MACRO_FOLDER = "/macros"
-
+SCREENSAVER_START_TIME = 1 * 60 # seconds of inactivity will clear oled to avoid burn in
 
 # CLASSES AND FUNCTIONS ----------------
 
@@ -32,6 +33,11 @@ class App:
     of macro sequences. Project code was originally more complex and
     this was helpful, but maybe it's excessive now?"""
 
+    last_activity_time = time.monotonic()
+    in_screensaver_mode = False
+    breathing_brightness = 0.1  # Initial brightness
+    breathing_direction = 1  # 1 for increasing brightness, -1 for decreasing
+
     def __init__(self, appdata):
         self.name = appdata["name"]
         self.macros = appdata["macros"]
@@ -39,6 +45,7 @@ class App:
     def switch(self):
         """Activate application settings; update OLED labels and LED
         colors."""
+        App.last_activity_time = time.monotonic()
         group[13].text = self.name  # Application name
         for i in range(12):
             if i < len(self.macros):  # Key in use, set label + LED color
@@ -53,6 +60,51 @@ class App:
         macropad.stop_tone()
         macropad.pixels.show()
         macropad.display.refresh()
+
+        # SCREENSAVER MODE HELPERS -------------
+
+def enter_screensaver_mode():
+    macropad.display.auto_refresh = False
+    macropad.display_sleep = True
+    for i in range(12):
+        macropad.pixels[i] = 0  # Turn off all key LEDs
+    macropad.pixels.show()
+    App.in_screensaver_mode = True
+
+def wake_from_screensaver():
+    App.in_screensaver_mode = False
+    macropad.display_sleep = False
+    macropad.display.auto_refresh = True
+    apps[app_index].switch()  # Redraw the OLED and LEDs
+
+def screensaver_breathing_effect():
+    App.breathing_brightness += 0.001 * App.breathing_direction
+    if App.breathing_brightness >= 1.0 or App.breathing_brightness <= 0.1:
+        App.breathing_direction *= -1  # Reverse direction
+    pixel_brightness = int(255 * App.breathing_brightness)
+    for i in range(12):
+        min_distance = 0.5
+        scale:float = min_distance / get_pixel_distance_from_center(i)
+        macropad.pixels[i] = (int(pixel_brightness*scale), 0, 0) # Red because it's cool
+    macropad.pixels.show()
+
+
+def get_pixel_distance_from_center(pixel_idx: int) -> float:
+    """
+    Given an index of the LED pixel under each of the keys, return its distance
+    from the center of the grid. This is used to create a nice radiating breathing
+    effect when running in the screen saver mode.
+    """
+    if pixel_idx in [0, 2, 9, 11]:
+        return math.sqrt(1.5**2 + 1**2)
+    if pixel_idx in [1, 10]:
+        return 1.5
+    if pixel_idx in [3, 5, 6, 8]:
+        return math.sqrt(0.5**2 + 1**2)
+    if pixel_idx in [4, 7]:
+        return 0.5
+    return 1
+
 
 
 class KeyDescriptionScreen:
@@ -145,7 +197,7 @@ if not apps:
     while True:
         pass
 
-last_position = None
+last_position = 0
 last_encoder_switch = macropad.encoder_switch_debounced.pressed
 app_index = 0
 apps[app_index].switch()
@@ -153,15 +205,30 @@ apps[app_index].switch()
 
 # MAIN LOOP ----------------------------
 
+# This is needed for debouncing the encoder inputs.
+last_encoder_poll_time = time.monotonic()
+DEBOUNCE_DELAY = 0.5
+
 current_app = None
 last_tested_switch_name = None
 while True:
     # Read encoder position. If it's changed, switch apps.
     position = macropad.encoder
-    if position != last_position:
-        app_index = position % len(apps)
-        current_app = apps[app_index]
-        current_app.switch()
+    current_time = time.monotonic()
+    if position != last_position :
+        print(f"Last position: {last_position}, current position: {position}")
+        if App.in_screensaver_mode:
+            wake_from_screensaver()
+        if (current_time - last_encoder_poll_time) > DEBOUNCE_DELAY:
+            new_index = 0
+            if int(position) > int(last_position):
+                new_index = app_index + 1
+            else:
+                new_index = app_index - 1
+            app_index = new_index % len(apps)
+            current_app = apps[app_index]
+            current_app.switch()
+            last_encoder_poll_time = current_time
         last_position = position
         current_app_index = app_index
 
@@ -179,6 +246,12 @@ while True:
     else:
         event = macropad.keys.events.get()
         if not event or event.key_number >= len(apps[app_index].macros):
+            if App.in_screensaver_mode:
+                screensaver_breathing_effect()  # Continue breathing effect in screensaver mode
+            else:
+                time_since_last_activity = current_time - App.last_activity_time
+                if time_since_last_activity > SCREENSAVER_START_TIME:
+                    enter_screensaver_mode()
             continue  # No key events, or no corresponding macro, resume loop
         key_number = event.key_number
         pressed = event.pressed
@@ -187,8 +260,12 @@ while True:
     # and there IS a corresponding macro available for it...other situations
     # are avoided by 'continue' statements above which resume the loop.
 
+    App.last_activity_time = current_time # Reset inactivity timer
     sequence = apps[app_index].macros[key_number][2]
     if pressed:
+        if App.in_screensaver_mode:
+            wake_from_screensaver()
+            continue    # Skip this event, as it was used for screen wake up
         # 'sequence' is an arbitrary-length list, each item is one of:
         # Positive integer (e.g. Keycode.KEYPAD_MINUS): key pressed
         # Negative integer: (absolute value) key released
