@@ -197,9 +197,19 @@ if not apps:
     while True:
         pass
 
+MINIMALISTIC_APP_INDEX = 4
+"""
+Index of the app (set of macros) that are designed to complement the minimal
+setup with the Unicomp keyboard. If this app is selected, we don't want to
+run the breathing effect in the screensaver mode as the red LEDs don't look good
+in that setup. Currently this is set to the index of the "Unicomp Hotkeys" app,
+that is defined in macros/minimalistic_media.py.
+"""
+
 last_position = 0
 last_encoder_switch = macropad.encoder_switch_debounced.pressed
-app_index = 0
+# We start at the minimalistic app by default.
+app_index = MINIMALISTIC_APP_INDEX
 apps[app_index].switch()
 
 
@@ -208,6 +218,7 @@ apps[app_index].switch()
 # This is needed for debouncing the encoder inputs.
 last_encoder_poll_time = time.monotonic()
 DEBOUNCE_DELAY = 0.5
+
 
 current_app = None
 last_tested_switch_name = None
@@ -246,7 +257,7 @@ while True:
     else:
         event = macropad.keys.events.get()
         if not event or event.key_number >= len(apps[app_index].macros):
-            if App.in_screensaver_mode:
+            if App.in_screensaver_mode and app_index != MINIMALISTIC_APP_INDEX:
                 screensaver_breathing_effect()  # Continue breathing effect in screensaver mode
             else:
                 time_since_last_activity = current_time - App.last_activity_time
