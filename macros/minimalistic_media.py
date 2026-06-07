@@ -24,15 +24,15 @@ app = {               # REQUIRED dict, must be named 'app'
     'macros' : [      # List of button macros...
         # COLOR    LABEL    KEY SEQUENCE
         # 1st row ----------
-        (0x000000, '', []),
+        (0x000000, 'Audio', [Keycode.CONTROL, Keycode.SPACE, -Keycode.SPACE, -Keycode.CONTROL, 0.1, 'pavucontrol', Keycode.ENTER]),
         (0x000000, 'Vol+', [[ConsumerControlCode.VOLUME_INCREMENT]]),
-        (0x000000, 'PrtSc', [Keycode.PRINT_SCREEN]),
+        (0x000000, 'Games', [Keycode.CONTROL, Keycode.SPACE, -Keycode.SPACE, -Keycode.CONTROL, 0.1, 'microbox', Keycode.ENTER]),
         # 2nd row ----------
-        (0x000000, '', []),
+        (0x000000, 'Start', [Keycode.CONTROL, '5', -Keycode.CONTROL, Keycode.CONTROL, Keycode.SPACE, -Keycode.SPACE, -Keycode.CONTROL, 0.1, 'start', Keycode.ENTER]),
         (0x000000, 'Vol-', [[ConsumerControlCode.VOLUME_DECREMENT]]),
         (0x000000, 'Calc', [Keycode.CONTROL, Keycode.SPACE, -Keycode.SPACE, -Keycode.CONTROL, 0.1, 'calculator', Keycode.ENTER]),
         # 3rd row ----------
-        (0x000000, '', []),
+        (0x000000, 'Home', [Keycode.CONTROL, '5']),
         (0x000000, 'Mute', [[ConsumerControlCode.MUTE]]),
         (0x000000, 'Lock', [Keycode.WINDOWS, Keycode.L]),
         # 4th row ----------
@@ -40,6 +40,6 @@ app = {               # REQUIRED dict, must be named 'app'
         (0x000000, 'Play/Pause', [[ConsumerControlCode.PLAY_PAUSE]]),
         (0x000000, '>>', [[ConsumerControlCode.SCAN_NEXT_TRACK]]),
         # Encoder button ---
-        (0x000000, '', [Keycode.ESCAPE])
+        (0x000000, '', [Keycode.CONTROL, Keycode.SHIFT, 'q'])
     ]
 }
